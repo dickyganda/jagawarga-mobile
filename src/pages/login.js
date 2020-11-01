@@ -1,24 +1,20 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
-import { Container, Header, } from 'native-base';
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
+import { Container, Header, Form, Item, Input, Label} from 'native-base';
 const LoginScreen = ({ navigation }) => {
     return (
-       <Container>
-          <Header></Header>
+       <Container style={{backgroundColor: '#2faaff'}}>
       <View style={styles.container}>
-          <Text style = {styles.titletext}>Login</Text>
-        <TextInput style = {styles.input}
-               underlineColorAndroid = "transparent"
-               placeholder = "Email"
-               placeholderTextColor = "#9a73ef"
-               autoCapitalize = "none"/>
-            
-            <TextInput style = {styles.input}
-               underlineColorAndroid = "transparent"
-               placeholder = "Password"
-               placeholderTextColor = "#9a73ef"
-               autoCapitalize = "none"/>
-            
+         <Image source={require('../drawable/title_jagawarga.png')} style={{ width: 300, height: 25}}/>
+      <Form style={{alignItems: 'center'}}>
+            <Item floatingLabel>
+              <Label>Username</Label>
+              <Input />
+            </Item>
+            <Item floatingLabel last>
+              <Label>Password</Label>
+              <Input />
+            </Item>
             <TouchableOpacity
                style = {styles.submitButton}
                onPress = {
@@ -26,6 +22,7 @@ const LoginScreen = ({ navigation }) => {
                }>
                <Text style = {styles.submitButtonText}> Submit </Text>
             </TouchableOpacity>
+          </Form>
       </View>
       </Container>
     );
@@ -51,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
    },
 
    submitButton: {
-      backgroundColor: '#7a42f4',
+      backgroundColor: 'navy',
       padding: 10,
       margin: 15,
       height: 40,

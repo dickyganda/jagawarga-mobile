@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet} from 'react-native';
-import { Container, Header, Left, Button, Icon, Body, Title, Right } from 'native-base';
+import { Container, Header, Left, Button, Icon, Body, Title, Right, Image } from 'native-base';
 const BantuanScreen = ({ navigation }) => {
     return (
        <Container>
-         <Header>
+         <Header style={{ backgroundColor: '#2faaff' }}>
             <Left>
                <Button transparent>
                <Icon name="arrow-back" />
                </Button>
             </Left>
             <Body>
-               <Title>Header</Title>
+               <Title style={{alignItems: 'center'}}>Bantuan</Title>
             </Body>
             <Right>
                <Button transparent>
-               <Text>Cancel</Text>
+               <Text>Back</Text>
                </Button>
             </Right>
          </Header>
@@ -59,7 +59,7 @@ const BantuanScreen = ({ navigation }) => {
 
    titletext:{
       fontSize: 18,
-      color: 'blue',
+      color: '#2faaff',
       textAlign: 'center',
    },
 
@@ -71,7 +71,7 @@ const BantuanScreen = ({ navigation }) => {
    },
 
    submitButton: {
-      backgroundColor: '#008dcb',
+      backgroundColor: '#2faaff',
       padding: 10,
       margin: 15,
       height: 40,

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Image, FlatList, Dimensions } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, View } from 'native-base';
+import { Image, FlatList, Dimensions, ImageBackground } from 'react-native';
+import { Container, Header, Card, Text, Button, Icon, View, Left, Right, Body, Title } from 'native-base';
 const homeMenu =[
   {
     id: 0,
     nama: 'Penyakit 1',
-    image: require('../drawable/homeicon.png')
+    image: require('../drawable/homeicon.png'),
   },
   {
     id: 1,
@@ -37,13 +37,27 @@ export default class Home extends Component {
   render() {
     return (
       <Container>
-        <Header />
+        <Header style={{ backgroundColor: '#2faaff' }}>
+            <Left>
+               {/* <Button transparent>
+               <Icon name="arrow-back" />
+               </Button> */}
+            </Left>
+            <Body>
+               <Image source={require('../drawable/title_jagawarga.png')} style={{ width: 300, height: 25}} ></Image>
+            </Body>
+            <Right>
+               <Button transparent onPress={()=> this.props.navigation.navigate("Login")}>
+               <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+               </Button>
+            </Right>
+         </Header>
         <FlatList
           data={homeMenu}
           renderItem={({item, index}) => (
             <Card style={{ width: Dimensions.get('screen').width / 3.2, height: Dimensions.get('screen').height / 7, marginLeft: 5.5}}>
               <View style={{ alignItems: 'center', padding: 10 }}>
-                <Image source={item.image} style={{ width: 75, height: 75, resizeMode: 'contain'}} />
+                <Image source={item.image} style={{ width: 75, height: 75, resizeMode: 'contain' }} />
                 <Text>{item.nama}</Text>
               </View>
             </Card>
