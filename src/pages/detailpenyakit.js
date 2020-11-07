@@ -1,14 +1,19 @@
-import * as React from 'react';
-import { View, Button } from 'react-native';
-const DetailpenyakitScreen = ({ navigation }) => {
+import React, { Component } from "react";
+import { Container, Header, Content, Accordion } from "native-base";
+const dataArray = [
+  { title: "First Element", content: "Lorem ipsum dolor sit amet" },
+  { title: "Second Element", content: "Lorem ipsum dolor sit amet" },
+  { title: "Third Element", content: "Lorem ipsum dolor sit amet" }
+];
+export default class AccordionExample extends Component {
+  render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style = {styles.titletext}>Berisi jenis jenis penyakit menular dalam bentuk image button dan setiap button ketika di klik akan mengarah ke informasi detail setiap penyakit</Text>
-        <Button
-          onPress={() => navigation.navigate('Home')}
-          title="Go to Setting"
-        />
-      </View>
+      <Container>
+        <Header />
+        <Content padder>
+          <Accordion dataArray={dataArray} expanded={0}/>
+        </Content>
+      </Container>
     );
   }
-  export default DetailpenyakitScreen
+}

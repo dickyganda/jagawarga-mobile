@@ -1,28 +1,20 @@
 import * as React from 'react';
-import {View, Button } from 'react-native';
-import { Container, Header, Left, Right, Body, Title, Icon} from 'native-base';
-const Map = ({ navigation }) => {
+import { View, Text, Image} from 'react-native';
+import { Container, Header, Button, Right } from 'native-base';
+const MapScreen = ({ navigation }) => {
     return (
-      <Container>
-        <Header style={{ backgroundColor: '#2faaff' }}>
-            <Left>
-               <Button transparent>
-               <Icon name="arrow-back" />
-               </Button>
-            </Left>
-            <Body>
-               <Title>Header</Title>
-            </Body>
+       <Container>
+         <Header style={{ backgroundColor: '#2faaff' }}>
             <Right>
-               {/* <Button transparent>
-               <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
-               </Button> */}
+               <Button transparent onPress={()=> navigation.navigate("Login")}>
+                  <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+               </Button>
             </Right>
          </Header>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button onPress={() => navigation.goBack()} title="Go back home" />
-      </View>
+         <View>
+            <Text>Ini Screen untuk Peta</Text>
+         </View>
       </Container>
     );
   }
-export default Map;
+  export default MapScreen
