@@ -4,41 +4,41 @@ import { Container, Header, Card, Text, Button, Icon, View, Left, Right, Body, T
 const homeMenu =[
   {
     id: 0,
-    nama: 'Penyakit 1',
+    nama: 'TB PARU',
     image: require('../drawable/homeicon.png'),
     url: ('../pages/bantuan'),
-    pres: 'Detail Penyakit'
+    pres: 'Tb Paru'
 
   },
   {
     id: 1,
-    nama: 'Penyakit 2',
+    nama: 'KUSTA',
     image: require('../drawable/homeicon.png'),
-    pres: 'Detail Penyakit'
+    pres: 'Kusta'
   },
   {
     id: 2,
-    nama: 'Penyakit 3',
+    nama: 'HIV',
     image: require('../drawable/homeicon.png'),
-    pres: 'Detail Penyakit'
+    pres: 'Hiv'
   },
   {
     id: 3,
-    nama: 'Penyakit 4',
+    nama: 'DIARE',
     image: require('../drawable/homeicon.png'),
-    pres: 'Detail Penyakit'
+    pres: 'Diare'
   },
   {
     id: 4,
-    nama: 'Penyakit 5',
+    nama: 'ISPA',
     image: require('../drawable/homeicon.png'),
-    pres: 'Detail Penyakit'
+    pres: 'Ispa'
   },
   {
     id: 5,
-    nama: 'Penyakit 6',
+    nama: 'DBD',
     image: require('../drawable/homeicon.png'),
-    pres: 'Detail Penyakit'
+    pres: 'Dbd'
   }
 ]
 export default class Home extends Component {

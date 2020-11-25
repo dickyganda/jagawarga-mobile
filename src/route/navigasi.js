@@ -11,7 +11,12 @@ import MapScreen from '../pages/map'
 // import InfoScreen from '../pages/info'
 import BantuanScreen from '../pages/bantuan'
 import LoginScreen from '../pages/login'
-import DetailpenyakitScreen from '../pages/detailpenyakit'
+import TbparuScreen from '../pages/tbparu'
+import KustaScreen from '../pages/kusta'
+import HivScreen from '../pages/hiv'
+import DiareScreen from '../pages/diare'
+import IspaScreen from '../pages/ispa'
+import DbdScreen from '../pages/dbd'
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -65,8 +70,53 @@ export default function App() {
           }} 
         />
         <Drawer.Screen 
-          name="Detail Penyakit" 
-          component={DetailpenyakitScreen}
+          name="Tb Paru" 
+          component={TbparuScreen}
+          options={{
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null
+          }} 
+        />
+        <Drawer.Screen 
+          name="Kusta" 
+          component={KustaScreen}
+          options={{
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null
+          }} 
+        />
+        <Drawer.Screen 
+          name="Hiv" 
+          component={HivScreen}
+          options={{
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null
+          }} 
+        />
+        <Drawer.Screen 
+          name="Diare" 
+          component={DiareScreen}
+          options={{
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null
+          }} 
+        />
+        <Drawer.Screen 
+          name="Ispa" 
+          component={IspaScreen}
+          options={{
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null
+          }} 
+        />
+        <Drawer.Screen 
+          name="Dbd" 
+          component={DbdScreen}
           options={{
             drawerLabel: () => null,
             title: null,
