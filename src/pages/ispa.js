@@ -5,10 +5,13 @@ const dataArray = [
   content: "ISPA" },
 
   { title: "GEJALA", 
-  content: "1.	Batuk berdahak lebih dari 2 minggu 2.	Demam terus-menerus 3. Lemas 4.	Nafsu makan menurun 5.	Berkeringat dingin saat malam hari tampa aktivitas 6.	Batuk darah" },
+  content: "1.	Hidung tersumbat atau berair 2.	Bersin-bersin 3.	Sesak pada bagian dada 4.	Kerap merasa kelelahan 5.	Demam 6.	Batuk-batuk 7.	Sakit tenggorokan 8.	Nyeri otot" },
+
+  { title: "PENANGANAN PERTAMA", 
+  content: "Penanganan ispa sesuai dengan keluhan biasanya di berikan obat untuk mengurangi batuk, vitamin C dan juga pereda nyeri" },
 
   { title: "WAKTU PENGOBATAN", 
-  content: "1 Tahun 6 Bulan" }
+  content: "KOSONG" }
 ];
 export default class AccordionExample extends Component {
   render() {

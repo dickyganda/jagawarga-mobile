@@ -38,6 +38,12 @@ const BantuanScreen = ({ navigation }) => {
                placeholder = "Bantuan"
                placeholderTextColor = "#008dcb"
                autoCapitalize = "none"/>
+
+<TextInput style = {styles.input}
+               underlineColorAndroid = "transparent"
+               placeholder = "Jumlah"
+               placeholderTextColor = "#008dcb"
+               autoCapitalize = "none"/>
             
             <TouchableOpacity
                style = {styles.submitButton}

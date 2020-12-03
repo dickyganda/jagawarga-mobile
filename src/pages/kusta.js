@@ -5,7 +5,10 @@ const dataArray = [
   content: "KUSTA" },
 
   { title: "GEJALA", 
-  content: "1.	Batuk berdahak lebih dari 2 minggu 2.	Demam terus-menerus 3. Lemas 4.	Nafsu makan menurun 5.	Berkeringat dingin saat malam hari tampa aktivitas 6.	Batuk darah" },
+  content: "1.	Bercak-bercak berwarna terang atau kemerahan di kulit disertai dengan kurangnya kemampuan merasa, mati rasa, (suhu,tekanan dan sentuhan) 2.	Muncul luka tapi tidak terasa sakit 3.	Otot melemah terutama otot kaki dan tangan 4.	Prmbrsaran saraf terutama di lutut dan siku" },
+
+  { title: "PENANGANAN PERTAMA", 
+  content: "Hasil pemeriksaan positif kusta dilakukan pengobatan MDT(Multi Drug Therapy) selama 1 tahun 6 bulan, setelah itu melakukan pengobatan sesuai keluhan pasien" },
 
   { title: "WAKTU PENGOBATAN", 
   content: "1 Tahun 6 Bulan" }

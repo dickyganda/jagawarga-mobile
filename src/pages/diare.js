@@ -5,10 +5,13 @@ const dataArray = [
   content: "Diare" },
 
   { title: "GEJALA", 
-  content: "1.	Batuk berdahak lebih dari 2 minggu 2.	Demam terus-menerus 3. Lemas 4.	Nafsu makan menurun 5.	Berkeringat dingin saat malam hari tampa aktivitas 6.	Batuk darah" },
+  content: "1.	Perut mulas 2.	Tinja encer (BAB cair) atau bahkan berdarah 3.	Mual dan muntah 4.	Pusing 5.	Lemas 6.	Nafsu makan turun 7.	Kulit kering 8.	Merasa haus terus menerus" },
+
+  { title: "PENANGANAN PERTAMA", 
+  content: "Mengkonsusmsi banyak cairan untuk menggantikan kehilangan cairan, baik melalui oral (bias menggunakan oralit) ataupun intravena (cairan infus) Pemberian obat untuk melawan bakteri" },
 
   { title: "WAKTU PENGOBATAN", 
-  content: "1 Tahun 6 Bulan" }
+  content: "KOSONG" }
 ];
 export default class AccordionExample extends Component {
   render() {
