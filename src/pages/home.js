@@ -5,39 +5,39 @@ const homeMenu =[
   {
     id: 0,
     nama: 'TB PARU',
-    image: require('../drawable/homeicon.png'),
-    url: ('../pages/bantuan'),
+    image: require('../drawable/tbparu.png'),
+    // url: ('../pages/bantuan'),
     pres: 'Tb Paru'
 
   },
   {
     id: 1,
     nama: 'KUSTA',
-    image: require('../drawable/homeicon.png'),
+    image: require('../drawable/kusta.png'),
     pres: 'Kusta'
   },
   {
     id: 2,
     nama: 'HIV',
-    image: require('../drawable/homeicon.png'),
+    image: require('../drawable/hiv.png'),
     pres: 'Hiv'
   },
   {
     id: 3,
     nama: 'DIARE',
-    image: require('../drawable/homeicon.png'),
+    image: require('../drawable/diare.png'),
     pres: 'Diare'
   },
   {
     id: 4,
     nama: 'ISPA',
-    image: require('../drawable/homeicon.png'),
+    image: require('../drawable/ispa.png'),
     pres: 'Ispa'
   },
   {
     id: 5,
     nama: 'DBD',
-    image: require('../drawable/homeicon.png'),
+    image: require('../drawable/dbd.png'),
     pres: 'Dbd'
   }
 ]

@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from '../pages/home'
 import MapScreen from '../pages/map'
-// import InfoScreen from '../pages/info'
+import PengingatScreen from '../pages/pengingat'
 import BantuanScreen from '../pages/bantuan'
 import LoginScreen from '../pages/login'
 import TbparuScreen from '../pages/tbparu'
@@ -54,7 +54,7 @@ export default function App() {
           />
         <Drawer.Screen 
           name="Pengingat" 
-          component={BantuanScreen} 
+          component={PengingatScreen} 
           options={{
             drawerIcon: ({}) => (
               <Image source={require('../drawable/calendaricon.png')} style={{ width: 25, height: 25}} />
