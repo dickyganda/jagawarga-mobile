@@ -6,7 +6,6 @@ const homeMenu =[
     id: 0,
     nama: 'TB PARU',
     image: require('../drawable/tbparu.png'),
-    // url: ('../pages/bantuan'),
     pres: 'Tb Paru'
 
   },
@@ -39,6 +38,12 @@ const homeMenu =[
     nama: 'DBD',
     image: require('../drawable/dbd.png'),
     pres: 'Dbd'
+  },
+  {
+    id: 6,
+    nama: 'COVID 19',
+    image: require('../drawable/dbd.png'),
+    pres: 'Covid'
   }
 ]
 export default class Home extends Component {

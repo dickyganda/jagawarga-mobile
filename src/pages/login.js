@@ -1,7 +1,49 @@
-import * as React from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
+import React, {useState} from 'react';
+import { View, StyleSheet, Image, TouchableOpacity, Text, Alert } from 'react-native';
 import { Container, Header, Form, Item, Input, Label, Card} from 'native-base';
+import axios from 'axios'
+import {BASE_URL,LOGIN} from '../api'
+
+
 const LoginScreen = ({ navigation }) => {
+   const [form, setForm] = useState({
+      nik:'',
+      nama:''
+   });
+
+   const handleChange = (key, value) =>{        
+      setForm({
+      ...form,
+            [key] : value
+      })
+   }
+
+   const handleSubmit = () =>{
+      if(form.nik && form.nama){
+          // navigation.replace('Home')
+          const data = {
+              nik : form.nik,
+              nama : form.nama
+          }
+         //  console.log(data)
+         axios.post(BASE_URL+LOGIN, data)
+         .then(res => {
+            console.log(res.data);
+          })
+          .catch( e => {
+             console.log(e)
+          })
+         
+      }else{
+          Alert.alert(
+              "Login gagal !",
+              "NIK & Nama tidak boleh kosong"
+            );
+          // alert('Username & Password tidak boleh kosong')
+      }
+   }
+
+
     return (
        <Container style={{backgroundColor: '#2faaff'}}>
       <View style={styles.container}>
@@ -9,17 +51,17 @@ const LoginScreen = ({ navigation }) => {
          <Card style = {styles.card}>
       <Form style={{alignItems: 'center'}}>
             <Item floatingLabel>
-              <Label>Username</Label>
-              <Input />
+              <Label>NIK</Label>
+              <Input onChangeText={(value) => handleChange('nik',value)} />
             </Item>
             <Item floatingLabel last>
-              <Label>Password</Label>
-              <Input />
+              <Label>Nama</Label>
+              <Input onChangeText={(value) => handleChange('nama',value)}/>
             </Item>
             <TouchableOpacity
                style = {styles.submitButton}
                onPress = {
-                  () => this.login(this.state.email, this.state.password)
+                  () => handleSubmit()
                }>
                <Text style = {styles.submitButtonText}> Submit </Text>
             </TouchableOpacity>

@@ -17,6 +17,7 @@ import HivScreen from '../pages/hiv'
 import DiareScreen from '../pages/diare'
 import IspaScreen from '../pages/ispa'
 import DbdScreen from '../pages/dbd'
+import CovidScreen from '../pages/covid'
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -117,6 +118,15 @@ export default function App() {
         <Drawer.Screen 
           name="Dbd" 
           component={DbdScreen}
+          options={{
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null
+          }} 
+        />
+        <Drawer.Screen 
+          name="Covid" 
+          component={CovidScreen}
           options={{
             drawerLabel: () => null,
             title: null,

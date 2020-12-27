@@ -2,6 +2,21 @@ import * as React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet} from 'react-native';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Image } from 'native-base';
 const BantuanScreen = ({ navigation }) => {
+   
+   const [form, setForm] = React.useState({
+      nik:'',
+      nama:''
+   });
+   
+
+   const handleChange = (key, value) =>{        
+      setForm({
+      ...form,
+            [key] : value
+      })
+   }
+
+
     return (
        <Container>
          <Header style={{ backgroundColor: '#2faaff' }}>
@@ -25,24 +40,28 @@ const BantuanScreen = ({ navigation }) => {
                underlineColorAndroid = "transparent"
                placeholder = "NIK"
                placeholderTextColor = "#008dcb"
+               onChangeText={(value) => handleChange('nik',value)} 
                autoCapitalize = "none"/>
 
 <TextInput style = {styles.input}
                underlineColorAndroid = "transparent"
                placeholder = "Nama"
                placeholderTextColor = "#008dcb"
+               onChangeText={(value) => handleChange('nama',value)} 
                autoCapitalize = "none"/>
             
             <TextInput style = {styles.input}
                underlineColorAndroid = "transparent"
                placeholder = "Bantuan"
                placeholderTextColor = "#008dcb"
+               onChangeText={(value) => handleChange('jenis_bantuan',value)}
                autoCapitalize = "none"/>
 
 <TextInput style = {styles.input}
                underlineColorAndroid = "transparent"
                placeholder = "Jumlah"
                placeholderTextColor = "#008dcb"
+               onChangeText={(value) => handleChange('jumlah',value)}
                autoCapitalize = "none"/>
             
             <TouchableOpacity
