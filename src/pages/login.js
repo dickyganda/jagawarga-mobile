@@ -28,7 +28,18 @@ const LoginScreen = ({ navigation }) => {
          //  console.log(data)
          axios.post(BASE_URL+LOGIN, data)
          .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
+            if(res.data.status === "failed"){
+               alert("Login gagal")
+            }
+            else {
+               navigation.navigate("Home")
+            }
+            // pengecekan ketika status API berhasil, dan data user didapatkan.
+            // ketika status API failed, tetap dihalaman login, tp popup error.
+            // jika success lanjut bawah
+            // lock AsynStorage { info user }, navigasi ke halaman home
+            // ketika user masuk aplikasi lagi, tidak perlu login langsung ke halaman input
           })
           .catch( e => {
              console.log(e)

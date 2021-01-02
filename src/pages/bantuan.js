@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet} from 'react-native';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Image } from 'native-base';
+import axios from 'axios'
+import {BASE_URL,INSERT} from '../api'
+
 const BantuanScreen = ({ navigation }) => {
    
    const [form, setForm] = React.useState({
-      nik:'',
-      nama:''
+      jenis_bantuan:'',
+      stok:'',
+      satuan:''
    });
    
 
@@ -14,6 +18,47 @@ const BantuanScreen = ({ navigation }) => {
       ...form,
             [key] : value
       })
+      // sama dengan kode handle login,
+      // kondisi ketika user berhasil insert/nggak
+      // user berhasil insert popup success,
+      // user tidak berhasil insert popup gagal.
+   }
+
+   const handleSubmit = () =>{
+      if(form.jenis_bantuan && form.stok && form.satuan){
+          // navigation.replace('Home')
+          const data = {
+              jenis_bantuan : form.jenis_bantuan,
+              stok : form.stok,
+              satuan : form.satuan,
+          }
+         //  console.log(data)
+         axios.post(BASE_URL+INSERT, data)
+         .then(res => {
+            console.log(res.data);
+            if(res.data.status === "failed"){
+               alert("Gagal Input Bantuan")
+            }
+            else {
+               navigation.navigate("Home")
+            }
+            // pengecekan ketika status API berhasil, dan data user didapatkan.
+            // ketika status API failed, tetap dihalaman login, tp popup error.
+            // jika success lanjut bawah
+            // lock AsynStorage { info user }, navigasi ke halaman home
+            // ketika user masuk aplikasi lagi, tidak perlu login langsung ke halaman input
+          })
+          .catch( e => {
+             console.log(e)
+          })
+         
+      }else{
+          Alert.alert(
+              "Input bantuan gagal !",
+              "Data yang dimasukkan salah"
+            );
+          // alert('Username & Password tidak boleh kosong')
+      }
    }
 
 
@@ -38,36 +83,29 @@ const BantuanScreen = ({ navigation }) => {
          <Text style = {styles.titletext}>Bantuan</Text>
         <TextInput style = {styles.input}
                underlineColorAndroid = "transparent"
-               placeholder = "NIK"
+               placeholder = "Jenis Bantuan"
                placeholderTextColor = "#008dcb"
-               onChangeText={(value) => handleChange('nik',value)} 
-               autoCapitalize = "none"/>
-
-<TextInput style = {styles.input}
-               underlineColorAndroid = "transparent"
-               placeholder = "Nama"
-               placeholderTextColor = "#008dcb"
-               onChangeText={(value) => handleChange('nama',value)} 
-               autoCapitalize = "none"/>
-            
-            <TextInput style = {styles.input}
-               underlineColorAndroid = "transparent"
-               placeholder = "Bantuan"
-               placeholderTextColor = "#008dcb"
-               onChangeText={(value) => handleChange('jenis_bantuan',value)}
+               onChangeText={(value) => handleChange('jenis_bantuan',value)} 
                autoCapitalize = "none"/>
 
 <TextInput style = {styles.input}
                underlineColorAndroid = "transparent"
                placeholder = "Jumlah"
                placeholderTextColor = "#008dcb"
-               onChangeText={(value) => handleChange('jumlah',value)}
+               onChangeText={(value) => handleChange('stok',value)} 
+               autoCapitalize = "none"/>
+            
+            <TextInput style = {styles.input}
+               underlineColorAndroid = "transparent"
+               placeholder = "Satuan"
+               placeholderTextColor = "#008dcb"
+               onChangeText={(value) => handleChange('satuan',value)}
                autoCapitalize = "none"/>
             
             <TouchableOpacity
                style = {styles.submitButton}
                onPress = {
-                  () => this.login(this.state.email, this.state.password)
+                  () => handleSubmit()
                }>
                <Text style = {styles.submitButtonText}> Submit </Text>
             </TouchableOpacity>
