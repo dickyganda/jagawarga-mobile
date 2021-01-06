@@ -1,18 +1,28 @@
 import * as React from 'react';
 import { View, Text, Image} from 'react-native';
-import { Container, Header, Button, Right } from 'native-base';
+import { Container, Header, Button, Right} from 'native-base';
+
+
 const MapScreen = ({ navigation }) => {
     return (
        <Container>
          <Header style={{ backgroundColor: '#2faaff' }}>
-            <Right>
-               <Button transparent onPress={()=> navigation.navigate("Login")}>
-                  <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+            {/* <Left>
+               <Button transparent  onPress={()=>this.props.navigation.openDrawer()}>
+               <Image source={require('../drawable/list.png')} style={{ width: 25, height: 25}} />
                </Button>
-            </Right>
+            </Left>
+            <Body>
+               <Image source={require('../drawable/title_jagawarga.png')} style={{ width: 300, height: 25}} ></Image>
+            </Body>
+            <Right>
+               <Button transparent onPress={()=> this.props.navigation.navigate("Login")}>
+               <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+               </Button>
+            </Right> */}
          </Header>
          <View>
-            <Text>Ini Screen untuk Peta</Text>
+         <Text>Ini halaman map</Text>
          </View>
       </Container>
     );

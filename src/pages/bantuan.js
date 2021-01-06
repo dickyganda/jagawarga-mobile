@@ -35,7 +35,7 @@ const BantuanScreen = ({ navigation }) => {
          //  console.log(data)
          axios.post(BASE_URL+INSERT, data)
          .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if(res.data.status === "failed"){
                alert("Gagal Input Bantuan")
             }
@@ -65,19 +65,19 @@ const BantuanScreen = ({ navigation }) => {
     return (
        <Container>
          <Header style={{ backgroundColor: '#2faaff' }}>
-            <Left>
-               <Button transparent>
-               <Icon name="arrow-back" />
+            {/* <Left>
+               <Button transparent  onPress={()=>this.props.navigation.openDrawer()}>
+               <Image source={require('../drawable/list.png')} style={{ width: 25, height: 25}} />
                </Button>
             </Left>
             <Body>
-               <Title style={{alignItems: 'center'}}>Bantuan</Title>
+               <Image source={require('../drawable/title_jagawarga.png')} style={{ width: 300, height: 25}} ></Image>
             </Body>
             <Right>
-               <Button transparent>
-               <Text>Back</Text>
+               <Button transparent onPress={()=> this.props.navigation.navigate("Login")}>
+               <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
                </Button>
-            </Right>
+            </Right> */}
          </Header>
       <View style={styles.container}>
          <Text style = {styles.titletext}>Bantuan</Text>

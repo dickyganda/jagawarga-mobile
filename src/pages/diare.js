@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Header, Content, Accordion } from "native-base";
+import { Container, Header, Content, Accordion, Left, Right, Button, Image, Body } from "native-base";
 const dataArray = [
   { title: "NAMA PENYAKIT", 
   content: "Diare" },
@@ -11,13 +11,27 @@ const dataArray = [
   content: "Mengkonsusmsi banyak cairan untuk menggantikan kehilangan cairan, baik melalui oral (bias menggunakan oralit) ataupun intravena (cairan infus) Pemberian obat untuk melawan bakteri" },
 
   { title: "WAKTU PENGOBATAN", 
-  content: "KOSONG" }
+  content: "14" }
 ];
 export default class AccordionExample extends Component {
   render() {
     return (
       <Container>
-        <Header />
+        <Header style={{ backgroundColor: '#2faaff' }}>
+            {/* <Left>
+               <Button transparent  onPress={()=>this.props.navigation.openDrawer()}>
+               <Image source={require('../drawable/list.png')} style={{ width: 25, height: 25}} />
+               </Button>
+            </Left>
+            <Body>
+               <Image source={require('../drawable/title_jagawarga.png')} style={{ width: 300, height: 25}} ></Image>
+            </Body>
+            <Right>
+               <Button transparent onPress={()=> this.props.navigation.navigate("Login")}>
+               <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+               </Button>
+            </Right> */}
+         </Header>
         <Content padder>
           <Accordion dataArray={dataArray} expanded={0}/>
         </Content>

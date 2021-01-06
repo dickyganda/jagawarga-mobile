@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, FlatList, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 import { Container, Header, Card, Text, Button, Icon, View, Left, Right, Body, Title } from 'native-base';
+
 const homeMenu =[
   {
     id: 0,
@@ -42,7 +43,7 @@ const homeMenu =[
   {
     id: 6,
     nama: 'COVID 19',
-    image: require('../drawable/dbd.png'),
+    image: require('../drawable/covid.png'),
     pres: 'Covid'
   }
 ]
