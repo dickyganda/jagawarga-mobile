@@ -6,6 +6,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import CustomSidebar from '../pages/customSidebar';
+
 import HomeScreen from '../pages/home'
 import MapScreen from '../pages/map'
 import PengingatScreen from '../pages/pengingat'
@@ -20,120 +22,241 @@ import DbdScreen from '../pages/dbd'
 import CovidScreen from '../pages/covid'
 
 const Drawer = createDrawerNavigator();
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
 
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
-      {/* <Avatar size='large' rounded icon={{ name: 'user-circle-o', type: 'font-awesome', size: 80 }} /> */}
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen 
-          name="Home" 
-          component={HomeScreen} 
+      <Drawer.Navigator
+        drawerContentOptions={{
+          activeTintColor: '#e91e63',
+          itemStyle: { marginVertical: 5 }
+        }}
+        drawerContent={(props) => <CustomSidebar {...props} />}>
+        <Drawer.Screen
+          name="Home"
+          component={HomeScreen}
           options={{
-            drawerIcon: ({}) => (
-              <Image source={require('../drawable/homeicon.png')} style={{ width: 25, height: 25}} />
+            drawerIcon: ({ }) => (
+              <Image source={require('../drawable/homeicon.png')} style={{ width: 25, height: 25 }} />
             )
           }}
         />
-        <Drawer.Screen 
-          name="Map" 
+        <Drawer.Screen
+          name="Map"
           component={MapScreen}
           options={{
-            drawerIcon: ({}) => (
-              <Image source={require('../drawable/mapsicon.png')} style={{ width: 25, height: 25}} />
+            drawerIcon: ({ }) => (
+              <Image source={require('../drawable/mapsicon.png')} style={{ width: 25, height: 25 }} />
             )
           }} />
         <Drawer.Screen
-          name="Bantuan" 
+          name="Bantuan"
           component={BantuanScreen}
           options={{
-            drawerIcon: ({}) => (
-              <Image source={require('../drawable/helphandicon.png')} style={{ width: 25, height: 25}} />
+            drawerIcon: ({ }) => (
+              <Image source={require('../drawable/helphandicon.png')} style={{ width: 25, height: 25 }} />
             )
           }}
-          />
-        <Drawer.Screen 
-          name="Pengingat" 
-          component={PengingatScreen} 
+        />
+        <Drawer.Screen
+          name="Pengingat"
+          component={PengingatScreen}
           options={{
-            drawerIcon: ({}) => (
-              <Image source={require('../drawable/calendaricon.png')} style={{ width: 25, height: 25}} />
+            drawerIcon: ({ }) => (
+              <Image source={require('../drawable/calendaricon.png')} style={{ width: 25, height: 25 }} />
             )
           }} />
-        <Drawer.Screen 
-          name="Login" 
+        <Drawer.Screen
+          name="Login"
           component={LoginScreen}
           options={{
             drawerLabel: () => null,
             title: null,
             drawerIcon: () => null
-          }} 
+          }}
         />
-        <Drawer.Screen 
-          name="Tb Paru" 
+        <Drawer.Screen
+          name="Tb Paru"
           component={TbparuScreen}
           options={{
             drawerLabel: () => null,
             title: null,
             drawerIcon: () => null
-          }} 
+          }}
         />
-        <Drawer.Screen 
-          name="Kusta" 
+        <Drawer.Screen
+          name="Kusta"
           component={KustaScreen}
           options={{
             drawerLabel: () => null,
             title: null,
             drawerIcon: () => null
-          }} 
+          }}
         />
-        <Drawer.Screen 
-          name="Hiv" 
+        <Drawer.Screen
+          name="Hiv"
           component={HivScreen}
           options={{
             drawerLabel: () => null,
             title: null,
             drawerIcon: () => null
-          }} 
+          }}
         />
-        <Drawer.Screen 
-          name="Diare" 
+        <Drawer.Screen
+          name="Diare"
           component={DiareScreen}
           options={{
             drawerLabel: () => null,
             title: null,
             drawerIcon: () => null
-          }} 
+          }}
         />
-        <Drawer.Screen 
-          name="Ispa" 
+        <Drawer.Screen
+          name="Ispa"
           component={IspaScreen}
           options={{
             drawerLabel: () => null,
             title: null,
             drawerIcon: () => null
-          }} 
+          }}
         />
-        <Drawer.Screen 
-          name="Dbd" 
+        <Drawer.Screen
+          name="Dbd"
           component={DbdScreen}
           options={{
             drawerLabel: () => null,
             title: null,
             drawerIcon: () => null
-          }} 
+          }}
         />
-        <Drawer.Screen 
-          name="Covid" 
+        <Drawer.Screen
+          name="Covid"
           component={CovidScreen}
           options={{
             drawerLabel: () => null,
             title: null,
             drawerIcon: () => null
-          }} 
+          }}
         />
       </Drawer.Navigator>
     </NavigationContainer>
-  );
+  )
 }
+
+export default App;
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       {/* <Avatar size='large' rounded icon={{ name: 'user-circle-o', type: 'font-awesome', size: 80 }} /> */}
+//       <Drawer.Navigator initialRouteName="Home">
+//         <Drawer.Screen
+//           name="Home"
+//           component={HomeScreen}
+//           options={{
+//             drawerIcon: ({ }) => (
+//               <Image source={require('../drawable/homeicon.png')} style={{ width: 25, height: 25 }} />
+//             )
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Map"
+//           component={MapScreen}
+//           options={{
+//             drawerIcon: ({ }) => (
+//               <Image source={require('../drawable/mapsicon.png')} style={{ width: 25, height: 25 }} />
+//             )
+//           }} />
+//         <Drawer.Screen
+//           name="Bantuan"
+//           component={BantuanScreen}
+//           options={{
+//             drawerIcon: ({ }) => (
+//               <Image source={require('../drawable/helphandicon.png')} style={{ width: 25, height: 25 }} />
+//             )
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Pengingat"
+//           component={PengingatScreen}
+//           options={{
+//             drawerIcon: ({ }) => (
+//               <Image source={require('../drawable/calendaricon.png')} style={{ width: 25, height: 25 }} />
+//             )
+//           }} />
+//         <Drawer.Screen
+//           name="Login"
+//           component={LoginScreen}
+//           options={{
+//             drawerLabel: () => null,
+//             title: null,
+//             drawerIcon: () => null
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Tb Paru"
+//           component={TbparuScreen}
+//           options={{
+//             drawerLabel: () => null,
+//             title: null,
+//             drawerIcon: () => null
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Kusta"
+//           component={KustaScreen}
+//           options={{
+//             drawerLabel: () => null,
+//             title: null,
+//             drawerIcon: () => null
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Hiv"
+//           component={HivScreen}
+//           options={{
+//             drawerLabel: () => null,
+//             title: null,
+//             drawerIcon: () => null
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Diare"
+//           component={DiareScreen}
+//           options={{
+//             drawerLabel: () => null,
+//             title: null,
+//             drawerIcon: () => null
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Ispa"
+//           component={IspaScreen}
+//           options={{
+//             drawerLabel: () => null,
+//             title: null,
+//             drawerIcon: () => null
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Dbd"
+//           component={DbdScreen}
+//           options={{
+//             drawerLabel: () => null,
+//             title: null,
+//             drawerIcon: () => null
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Covid"
+//           component={CovidScreen}
+//           options={{
+//             drawerLabel: () => null,
+//             title: null,
+//             drawerIcon: () => null
+//           }}
+//         />
+//       </Drawer.Navigator>
+//     </NavigationContainer>
+//   );
+// }
