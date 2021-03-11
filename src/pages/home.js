@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, FlatList, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 import { Container, Header, Card, Text, Button, Icon, View, Left, Right, Body, Title } from 'native-base';
 
-const homeMenu =[
+const homeMenu = [
   {
     id: 0,
     nama: 'TB PARU',
@@ -51,7 +51,7 @@ export default class Home extends Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: '#2faaff' }}>
+        {/* <Header style={{ backgroundColor: '#2faaff' }}>
             <Left>
                <Button transparent  onPress={()=>this.props.navigation.openDrawer()}>
                <Image source={require('../drawable/list.png')} style={{ width: 25, height: 25}} />
@@ -65,12 +65,12 @@ export default class Home extends Component {
                <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
                </Button>
             </Right>
-         </Header>
+         </Header> */}
         <FlatList
           data={homeMenu}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <TouchableOpacity onPress={() => this.props.navigation.navigate(item.pres)}>
-              <Card style={{ width: Dimensions.get('screen').width / 3.2, height: Dimensions.get('screen').height / 7, marginLeft: 5.5}} onPress={item.url}>
+              <Card style={{ width: Dimensions.get('screen').width / 3.2, height: Dimensions.get('screen').height / 7, marginLeft: 5.5 }} onPress={item.url}>
                 <View style={{ alignItems: 'center', padding: 10 }}>
                   <Image source={item.image} style={{ width: 75, height: 75, resizeMode: 'contain' }} />
                   <Text>{item.nama}</Text>
