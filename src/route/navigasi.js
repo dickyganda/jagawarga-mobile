@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, View, TouchableOpacity } from 'react-native';
+import { Image, View, TouchableOpacity, Text } from 'react-native';
 import 'react-native-gesture-handler';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -12,14 +12,8 @@ import HomeScreen from '../pages/home'
 import MapScreen from '../pages/map'
 import PengingatScreen from '../pages/pengingat'
 import BantuanScreen from '../pages/bantuan'
-import LoginScreen from '../pages/login'
-import TbparuScreen from '../pages/tbparu'
-import KustaScreen from '../pages/kusta'
-import HivScreen from '../pages/hiv'
-import DiareScreen from '../pages/diare'
-import IspaScreen from '../pages/ispa'
-import DbdScreen from '../pages/dbd'
-import CovidScreen from '../pages/covid'
+// import LoginScreen from '../pages/login'
+import PenyakitPage from '../pages/penyakitPage';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -56,80 +50,10 @@ function HomeScreenStack({ navigation }) {
         }}
       />
       <Stack.Screen
-        name="Login"
-        component={LoginScreen}
+        name="Sick"
+        component={PenyakitPage}
         options={{
-          title: 'Login',
-          headerStyle: { backgroundColor: '#2faaff' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold' }
-        }}
-      />
-      <Stack.Screen
-        name="Tb Paru"
-        component={TbparuScreen}
-        options={{
-          title: 'Tb Paru',
-          headerStyle: { backgroundColor: '#2faaff' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold' }
-        }}
-      />
-      <Stack.Screen
-        name="Kusta"
-        component={KustaScreen}
-        options={{
-          title: 'Kusta',
-          headerStyle: { backgroundColor: '#2faaff' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold' }
-        }}
-      />
-      <Stack.Screen
-        name="Hiv"
-        component={HivScreen}
-        options={{
-          title: 'Hiv',
-          headerStyle: { backgroundColor: '#2faaff' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold' }
-        }}
-      />
-      <Stack.Screen
-        name="Diare"
-        component={DiareScreen}
-        options={{
-          title: 'Diare',
-          headerStyle: { backgroundColor: '#2faaff' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold' }
-        }}
-      />
-      <Stack.Screen
-        name="Ispa"
-        component={IspaScreen}
-        options={{
-          title: 'Ispa',
-          headerStyle: { backgroundColor: '#2faaff' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold' }
-        }}
-      />
-      <Stack.Screen
-        name="Dbd"
-        component={DbdScreen}
-        options={{
-          title: 'Dbd',
-          headerStyle: { backgroundColor: '#2faaff' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold' }
-        }}
-      />
-      <Stack.Screen
-        name="Covid"
-        component={CovidScreen}
-        options={{
-          title: 'Covid',
+          title: 'Jenis-Jenis Penyakit',
           headerStyle: { backgroundColor: '#2faaff' },
           headerTintColor: '#fff',
           headerTitleStyle: { fontWeight: 'bold' }
