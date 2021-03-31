@@ -12,7 +12,7 @@ import HomeScreen from '../pages/home'
 import MapScreen from '../pages/map'
 import PengingatScreen from '../pages/pengingat'
 import BantuanScreen from '../pages/bantuan'
-// import LoginScreen from '../pages/login'
+import LoginScreen from '../pages/login'
 import PenyakitPage from '../pages/penyakitPage';
 
 const Drawer = createDrawerNavigator();
@@ -35,6 +35,38 @@ const NavigationDrawerStructure = (props) => {
   )
 }
 
+const LoginButtonStructure = (props) => {
+  const isLogin = false;
+  return (
+    <View>
+      {isLogin ? (
+        <Text style={{ marginRight: 25, color: 'white', fontWeight: 'bold' }}>Username</Text>
+      ) : (
+        <TouchableOpacity
+          style={{ marginRight: 25, backgroundColor: '#25a0f7', padding: 8, borderRadius: 8 }}
+          onPress={() => props.navigationProps.navigate('Login')}
+        >
+          <Text style={{ fontWeight: 'bold', color: 'white' }}>Login</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  )
+}
+
+function LoginScreenStack() {
+  return (
+    <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
+
 function HomeScreenStack({ navigation }) {
   return (
     <Stack.Navigator initialRouteName="HomeScreen">
@@ -44,6 +76,7 @@ function HomeScreenStack({ navigation }) {
         options={{
           title: 'Home',
           headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
+          headerRight: () => <LoginButtonStructure navigationProps={navigation} />,
           headerStyle: { backgroundColor: '#2faaff' },
           headerTintColor: '#fff',
           headerTitleStyle: { fontWeight: 'bold' }
@@ -159,6 +192,13 @@ function App() {
             drawerIcon: ({ }) => (
               <Image source={require('../drawable/calendaricon.png')} style={{ width: 25, height: 25 }} />
             )
+          }} />
+        <Drawer.Screen
+          name="Login"
+          component={LoginScreenStack}
+          options={{
+            drawerIcon: () => null,
+            drawerLabel: () => null
           }} />
       </Drawer.Navigator>
     </NavigationContainer>
