@@ -1,5 +1,10 @@
 # JAGA WARGA Mobile Apps
 
+## Jalankan Build Debug App
+1. Jalankan program di HP/Emulator
+2. Jalankan script **start_debug**
+3. Masuk ke directory android dari terminal dan jalankan **./gradlew assembleDebug**
+
 ## TODO ?
 1. Rapikan Halaman Drawer Navigasi.
 2. Login button dipindah ke drawer.
