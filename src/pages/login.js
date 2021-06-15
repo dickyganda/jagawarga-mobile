@@ -1,44 +1,50 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Text, Alert, TextInput, StatusBar } from 'react-native';
-import axios from 'axios'
-import { BASE_URL, LOGIN } from '../api'
-
-
+import axios from 'axios';
+import { BASE_URL, LOGIN } from '../store/typeStore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginScreen = ({ navigation }) => {
    const [form, setForm] = useState({
       nik: '',
       nama: ''
    });
 
-   const handleChange = (key, value) => {
+   const handleChangeNIK = (value) => {
       setForm({
          ...form,
-         [key]: value
+         nik: value
+      })
+   }
+
+   const handleChangeName = (value) => {
+      setForm({
+         ...form,
+         nama: value
       })
    }
 
    const handleSubmit = () => {
       if (form.nik && form.nama) {
-         // navigation.replace('Home')
          const data = {
             nik: form.nik,
             nama: form.nama
          }
-         //  console.log(data)
          axios.post(BASE_URL + LOGIN, data)
-            .then(res => {
-               // console.log(res.data);
-               if (res.data.status === "failed") {
-                  alert("Login gagal")
+            .then( async (res) => {
+               console.log(res.data.response)
+               const response = res.data.response;
+               if (response.status === 'failed') {
+                  Alert.alert(
+                     "Login gagal !",
+                     `${response.status}`
+                  );
+                  console.log()
                }
                else {
+                  const nama = response.data.nama;
+                  await AsyncStorage.setItem('nama', nama)
                   navigation.navigate("Home")
                }
-               // pengecekan ketika status API berhasil, dan data user didapatkan.
-               // ketika status API failed, tetap dihalaman login, tp popup error.
-               // jika success lanjut bawah
-               // lock AsynStorage { info user }, navigasi ke halaman home
-               // ketika user masuk aplikasi lagi, tidak perlu login langsung ke halaman input
             })
             .catch(e => {
                console.log(e)
@@ -49,7 +55,6 @@ const LoginScreen = ({ navigation }) => {
             "Login gagal !",
             "NIK & Nama tidak boleh kosong"
          );
-         // alert('Username & Password tidak boleh kosong')
       }
    }
 
@@ -61,6 +66,7 @@ const LoginScreen = ({ navigation }) => {
          <View style={styles.inputView}>
             <TextInput
                style={styles.TextInput}
+               onChangeText={(value) => handleChangeNIK(value)}
                placeholder="NIK"
                placeholderTextColor="#003f5c"
             />
@@ -68,11 +74,12 @@ const LoginScreen = ({ navigation }) => {
          <View style={styles.inputView}>
             <TextInput
                style={styles.TextInput}
+               onChangeText={(value) => handleChangeName(value)}
                placeholder="Nama"
                placeholderTextColor="#003f5c"
             />
          </View>
-         <TouchableOpacity style={styles.loginBtn}>
+         <TouchableOpacity style={styles.loginBtn} onPress={() => handleSubmit()}>
             <Text style={styles.loginText}>Login</Text>
          </TouchableOpacity>
       </View>

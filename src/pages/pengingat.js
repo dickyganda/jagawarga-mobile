@@ -2,8 +2,6 @@ import * as React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet} from 'react-native';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Image } from 'native-base';
 import { Searchbar, DataTable } from 'react-native-paper';
-import axios from 'axios'
-import {BASE_URL,VIEWKARANTINA} from '../api'
 
 const dataPengingat = [
    {"id": 0, "nama":"DICKY GANDA PRAYOGI","nama_penyakit":"DBD","waktu_karantina":"Selesai","status":"sakit"},

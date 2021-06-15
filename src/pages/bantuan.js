@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import axios from 'axios'
-import { BASE_URL, INSERT } from '../api'
 
 const BantuanScreen = ({ navigation }) => {
 
@@ -40,25 +38,25 @@ const BantuanScreen = ({ navigation }) => {
             stok: form.stok,
             satuan: form.satuan,
          }
-         //  console.log(data)
-         axios.post(BASE_URL + INSERT, data)
-            .then(res => {
-               // console.log(res.data);
-               if (res.data.status === "failed") {
-                  alert("Gagal Input Bantuan")
-               }
-               else {
-                  navigation.navigate("Home")
-               }
-               // pengecekan ketika status API berhasil, dan data user didapatkan.
-               // ketika status API failed, tetap dihalaman login, tp popup error.
-               // jika success lanjut bawah
-               // lock AsynStorage { info user }, navigasi ke halaman home
-               // ketika user masuk aplikasi lagi, tidak perlu login langsung ke halaman input
-            })
-            .catch(e => {
-               console.log(e)
-            })
+          console.log(data)
+         // axios.post(BASE_URL + INSERT, data)
+         //    .then(res => {
+         //       // console.log(res.data);
+         //       if (res.data.status === "failed") {
+         //          alert("Gagal Input Bantuan")
+         //       }
+         //       else {
+         //          navigation.navigate("Home")
+         //       }
+         //       // pengecekan ketika status API berhasil, dan data user didapatkan.
+         //       // ketika status API failed, tetap dihalaman login, tp popup error.
+         //       // jika success lanjut bawah
+         //       // lock AsynStorage { info user }, navigasi ke halaman home
+         //       // ketika user masuk aplikasi lagi, tidak perlu login langsung ke halaman input
+         //    })
+         //    .catch(e => {
+         //       console.log(e)
+         //    })
 
       } else {
          Alert.alert(

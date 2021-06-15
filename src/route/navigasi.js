@@ -42,12 +42,7 @@ const LoginButtonStructure = (props) => {
       {isLogin ? (
         <Text style={{ marginRight: 25, color: 'white', fontWeight: 'bold' }}>Username</Text>
       ) : (
-        <TouchableOpacity
-          style={{ marginRight: 25, backgroundColor: '#25a0f7', padding: 8, borderRadius: 8 }}
-          onPress={() => props.navigationProps.navigate('Login')}
-        >
-          <Text style={{ fontWeight: 'bold', color: 'white' }}>Login</Text>
-        </TouchableOpacity>
+        <Text></Text>
       )}
     </View>
   )
@@ -197,8 +192,9 @@ function App() {
           name="Login"
           component={LoginScreenStack}
           options={{
-            drawerIcon: () => null,
-            drawerLabel: () => null
+            drawerIcon: ({}) => (
+              <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+            )
           }} />
       </Drawer.Navigator>
     </NavigationContainer>
