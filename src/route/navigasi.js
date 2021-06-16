@@ -6,6 +6,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import CustomSidebar from '../pages/customSidebar';
 
 import HomeScreen from '../pages/home'
@@ -36,11 +38,18 @@ const NavigationDrawerStructure = (props) => {
 }
 
 const LoginButtonStructure = (props) => {
-  const isLogin = false;
+  const [nama, setNama] = React.useState(null);
+  React.useEffect(() => {
+    async function getName() {
+      const nameUser = await AsyncStorage.getItem('nama');
+      await setNama(nameUser)
+    }
+    getName();
+  }, [])
   return (
     <View>
-      {isLogin ? (
-        <Text style={{ marginRight: 25, color: 'white', fontWeight: 'bold' }}>Username</Text>
+      { nama != null ? (
+        <Text style={{ marginRight: 25, color: 'white', fontWeight: 'bold' }}>{nama}</Text>
       ) : (
         <Text></Text>
       )}
@@ -49,6 +58,28 @@ const LoginButtonStructure = (props) => {
 }
 
 function LoginScreenStack() {
+  return (
+    <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function Logout({ navigation }) {
+  const [nama, setNama] = React.useState(null);
+  React.useEffect(() => {
+    async function getName() {
+      const nameUser = await AsyncStorage.removeItem('nama');
+      await setNama(nameUser)
+    }
+    getName();
+  }, [])
   return (
     <Stack.Navigator initialRouteName="LoginScreen">
       <Stack.Screen
@@ -146,6 +177,14 @@ function PengingatScreenStack({ navigation }) {
 }
 
 function App() {
+  const [nama, setNama] = React.useState(null);
+  React.useEffect(() => {
+    async function getName() {
+      const nameUser = await AsyncStorage.getItem('nama');
+      await setNama(nameUser)
+    }
+    getName();
+  }, [])
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -188,14 +227,25 @@ function App() {
               <Image source={require('../drawable/calendaricon.png')} style={{ width: 25, height: 25 }} />
             )
           }} />
-        <Drawer.Screen
-          name="Login"
-          component={LoginScreenStack}
+        {nama != null ? (
+          <Drawer.Screen
+          name="Logout"
+          component={Logout}
           options={{
             drawerIcon: ({}) => (
-              <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+              <Image source={require('../drawable/log-out.png')} style={{ width: 25, height: 25}} />
             )
           }} />
+        ) : (
+          <Drawer.Screen
+            name="Login"
+            component={LoginScreenStack}
+            options={{
+              drawerIcon: ({}) => (
+                <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+              )
+            }} />
+        )}
       </Drawer.Navigator>
     </NavigationContainer>
   )

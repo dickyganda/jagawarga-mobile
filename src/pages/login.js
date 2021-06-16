@@ -38,7 +38,6 @@ const LoginScreen = ({ navigation }) => {
                      "Login gagal !",
                      `${response.status}`
                   );
-                  console.log()
                }
                else {
                   const nama = response.data.nama;

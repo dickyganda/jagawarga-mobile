@@ -1,62 +1,51 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import axios from 'axios';
+
+import { BASE_URL, INSERT } from '../store/typeStore'
+import { Alert } from 'react-native';
+
 
 const BantuanScreen = ({ navigation }) => {
-
    const [form, setForm] = React.useState({
       jenis_bantuan: '',
       stok: '',
       satuan: undefined
    });
-   const [satuan, setSatuan] = React.useState(undefined);
-
-   const onValueChange = (value) => {
-      setForm({
-         ...form,
-         [key]: value
-      })
-   }
-
-
+   const satuan = undefined
    const handleChange = (key, value) => {
       setForm({
          ...form,
          [key]: value
       })
-      // sama dengan kode handle login,
-      // kondisi ketika user berhasil insert/nggak
-      // user berhasil insert popup success,
-      // user tidak berhasil insert popup gagal.
    }
 
    const handleSubmit = () => {
       if (form.jenis_bantuan && form.stok && form.satuan) {
-         // navigation.replace('Home')
          const data = {
             jenis_bantuan: form.jenis_bantuan,
             stok: form.stok,
             satuan: form.satuan,
          }
-          console.log(data)
-         // axios.post(BASE_URL + INSERT, data)
-         //    .then(res => {
-         //       // console.log(res.data);
-         //       if (res.data.status === "failed") {
-         //          alert("Gagal Input Bantuan")
-         //       }
-         //       else {
-         //          navigation.navigate("Home")
-         //       }
-         //       // pengecekan ketika status API berhasil, dan data user didapatkan.
-         //       // ketika status API failed, tetap dihalaman login, tp popup error.
-         //       // jika success lanjut bawah
-         //       // lock AsynStorage { info user }, navigasi ke halaman home
-         //       // ketika user masuk aplikasi lagi, tidak perlu login langsung ke halaman input
-         //    })
-         //    .catch(e => {
-         //       console.log(e)
-         //    })
+         axios.post(BASE_URL + INSERT, data)
+            .then(res => {
+               const response = res.data;
+               if (response.status === "failed") {
+                  Alert.alert(
+                     "Tambah data gagal!",
+                     `${response.status}`
+                  );
+               }
+               else {
+                  Alert.alert(
+                     `${response.reason}`,
+                  );
+               }
+            })
+            .catch(e => {
+               console.log(e)
+            })
 
       } else {
          Alert.alert(
@@ -82,7 +71,7 @@ const BantuanScreen = ({ navigation }) => {
             />
          </View>
          <View style={styles.inputContainer}>
-            <Text style={styles.titletext}>Stok</Text>
+            <Text style={styles.titletext}>Jumlah</Text>
             <TextInput style={styles.input}
                underlineColorAndroid="transparent"
                placeholder="Jumlah"
@@ -98,11 +87,11 @@ const BantuanScreen = ({ navigation }) => {
                <Picker
                   mode="dropdown"
                   selectedValue={satuan}
-                  onValueChange={(newSatuan) => setSatuan(newSatuan)}
+                  onValueChange={(newSatuan) => handleChange('satuan', newSatuan)}
                >
-                  <Picker.Item color='#008dcb' label="Pcs" value="key0" />
-                  <Picker.Item color='#008dcb' label="Kg" value="key1" />
-                  <Picker.Item color='#008dcb' label="Liter" value="key2" />
+                  <Picker.Item color='#008dcb' label="Pcs" value="Pcs" />
+                  <Picker.Item color='#008dcb' label="Kg" value="Kg" />
+                  <Picker.Item color='#008dcb' label="Liter" value="Liter" />
                </Picker>
             </View>
          </View>
