@@ -148,7 +148,7 @@ const homeMenu = [
   {
     id: 1,
     nama: 'KUSTA',
-    image: require('../drawable/kusta.png'),
+    image: require('../drawable/KUSTA.png'),
     params: kusta,
   },
   {
@@ -179,9 +179,9 @@ const homeMenu = [
     id: 6,
     nama: 'COVID 19',
     image: require('../drawable/covid.png'),
-    params: covid19
+    params: covid19,
   },
-]
+];
 export default class Home extends Component {
   render() {
     return (
