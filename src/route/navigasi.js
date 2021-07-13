@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, View, TouchableOpacity, Text } from 'react-native';
+import { Image, View, TouchableOpacity, Text, Alert } from 'react-native';
 import 'react-native-gesture-handler';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -19,6 +19,11 @@ import PenyakitPage from '../pages/penyakitPage';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
+
+import { AuthContext } from '../utils/authContext';
+
+import axios from 'axios';
+import { BASE_URL, LOGIN } from '../store/typeStore';
 
 const NavigationDrawerStructure = (props) => {
   const toogleDrawer = () => {
@@ -72,24 +77,20 @@ function LoginScreenStack() {
 }
 
 function Logout({navigation}) {
-  React.useEffect(() => {
-    async function getName() {
-      await AsyncStorage.removeItem('nama');
-      await AsyncStorage.removeItem('nik');
-    }
-    getName();
-  }, []);
-  return (
-    <Stack.Navigator initialRouteName="LoginScreen">
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
+  const { signOut } = React.useContext(AuthContext);
+  signOut();
+  return null
+  // (
+  //   <Stack.Navigator initialRouteName="LoginScreen">
+  //     <Stack.Screen
+  //       name="Login"
+  //       component={LoginScreen}
+  //       options={{
+  //         headerShown: false,
+  //       }}
+  //     />
+  //   </Stack.Navigator>
+  // );
 }
 
 function HomeScreenStack({ navigation }) {
@@ -175,18 +176,63 @@ function PengingatScreenStack({ navigation }) {
   )
 }
 
-function App() {
-  const [nama, setNama] = React.useState(null);
-  React.useEffect(() => {
-    async function getName() {
-      const nameUser = await AsyncStorage.getItem('nama');
-      await setNama(nameUser)
-    }
-    getName();
-  }, [])
+function DrawerWithoutLogin({ navigation }) {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
+    <Drawer.Navigator
+        drawerContentOptions={{
+          activeTintColor: '#e91e63',
+          itemStyle: { marginVertical: 5 }
+        }}
+        drawerContent={(props) => <CustomSidebar {...props} />}>
+        <Drawer.Screen
+          name="Home"
+          component={HomeScreenStack}
+          options={{
+            drawerIcon: ({ }) => (
+              <Image source={require('../drawable/homeicon.png')} style={{ width: 25, height: 25 }} />
+            )
+          }}
+        />
+        <Drawer.Screen
+          name="Map"
+          component={MapScreenStack}
+          options={{
+            drawerIcon: ({ }) => (
+              <Image source={require('../drawable/mapsicon.png')} style={{ width: 25, height: 25 }} />
+            )
+          }} />
+        <Drawer.Screen
+          name="Bantuan"
+          component={LoginScreenStack}
+          options={{
+            drawerIcon: ({ }) => (
+              <Image source={require('../drawable/helphandicon.png')} style={{ width: 25, height: 25 }} />
+            )
+          }}
+        />
+        <Drawer.Screen
+          name="Pengingat"
+          component={PengingatScreenStack}
+          options={{
+            drawerIcon: ({ }) => (
+              <Image source={require('../drawable/calendaricon.png')} style={{ width: 25, height: 25 }} />
+            )
+          }} />
+        <Drawer.Screen
+            name="Login"
+            component={LoginScreenStack}
+            options={{
+              drawerIcon: ({}) => (
+                <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
+              )
+            }} />
+      </Drawer.Navigator>
+  )
+}
+
+function DrawerWithLogin({ navigation }) {
+  return (
+    <Drawer.Navigator
         drawerContentOptions={{
           activeTintColor: '#e91e63',
           itemStyle: { marginVertical: 5 }
@@ -226,8 +272,7 @@ function App() {
               <Image source={require('../drawable/calendaricon.png')} style={{ width: 25, height: 25 }} />
             )
           }} />
-        {nama != null ? (
-          <Drawer.Screen
+        <Drawer.Screen
           name="Logout"
           component={Logout}
           options={{
@@ -235,18 +280,100 @@ function App() {
               <Image source={require('../drawable/log-out.png')} style={{ width: 25, height: 25}} />
             )
           }} />
-        ) : (
-          <Drawer.Screen
-            name="Login"
-            component={LoginScreenStack}
-            options={{
-              drawerIcon: ({}) => (
-                <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
-              )
-            }} />
-        )}
       </Drawer.Navigator>
-    </NavigationContainer>
+  )
+}
+
+function App() {
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case 'RESTORE_TOKEN':
+          return {
+            ...prevState,
+            userToken: action.token,
+          };
+        case 'SIGN_IN':
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case 'SIGN_OUT':
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isSignout: false,
+      userToken: null
+    }
+  );
+
+  React.useEffect(() => {
+    const bootstrapAsync = async () => {
+      let userToken;
+
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+      } catch (e) {
+        // fail restoring
+      }
+      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+    };
+
+    bootstrapAsync();
+  }, []);
+
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async data => {
+        axios
+          .post(BASE_URL + LOGIN, data)
+          .then( async (resp) => {
+            const status = resp.data.response.status;
+            if (status === 'success') {
+              const nama = resp.data.response.data.nama;
+              const nik = resp.data.response.data.nik;
+              let userToken = nama+nik;
+              await AsyncStorage.setItem('nama', nama);
+              await AsyncStorage.setItem('nik', nik.toString());
+              await AsyncStorage.setItem('userToken', userToken);
+              dispatch({ type: 'SIGN_IN', token: userToken });
+            } else {
+              Alert.alert(
+                "Ada kesalahan login!",
+                `Status ${status}`
+              )
+            }
+          })
+          .catch((err) => {
+            console.log('[err]', err);
+          })
+      },
+      signOut: async () => {
+        await AsyncStorage.removeItem('nama');
+        await AsyncStorage.removeItem('nik');
+        await AsyncStorage.removeItem('userToken');
+        dispatch({ type: 'SIGN_OUT' })
+      }
+    }),
+    []
+  );
+
+  return (
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {state.userToken == null ? (
+          <DrawerWithoutLogin />
+        ) : (
+          <DrawerWithLogin />
+        )}
+      </NavigationContainer>
+    </AuthContext.Provider>
   )
 }
 

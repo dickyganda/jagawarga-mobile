@@ -116,34 +116,37 @@ const BantuanScreen = ({ navigation }) => {
 export default BantuanScreen
 
 const styles = StyleSheet.create({
-   container: {
-      paddingTop: 23
-   },
-   inputContainer: {
-      margin: 5
-   },
-   titletext: {
-      fontWeight: 'bold',
-      color: '#0080ff'
-   },
-   input: {
-      margin: 15,
-      height: 50,
-      borderColor: '#008dcb',
-      borderWidth: 1,
-      borderRadius: 8
-   },
-   submitButton: {
-      backgroundColor: '#2faaff',
-      padding: 15,
-      margin: 15,
-      height: 50,
-      borderRadius: 8,
-      alignItems: 'center'
-   },
-   submitButtonText: {
-      color: 'white',
-      position: 'relative',
-      fontWeight: 'bold'
-   }
-})
+  container: {
+    paddingTop: 23,
+  },
+  inputContainer: {
+    margin: 5,
+  },
+  titletext: {
+    fontWeight: 'bold',
+    color: '#0080ff',
+    marginHorizontal: 15,
+  },
+  input: {
+    marginHorizontal: 25,
+    marginVertical: 15,
+    height: 50,
+    borderColor: '#008dcb',
+    borderWidth: 1,
+    borderRadius: 8,
+  },
+  submitButton: {
+    backgroundColor: '#2faaff',
+    padding: 15,
+    marginHorizontal: 25,
+    marginVertical: 20,
+    height: 50,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  submitButtonText: {
+    color: 'white',
+    position: 'relative',
+    fontWeight: 'bold',
+  },
+});

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Text, Alert, TextInput, StatusBar } from 'react-native';
-import axios from 'axios';
-import { BASE_URL, LOGIN } from '../store/typeStore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AuthContext} from '../utils/authContext';
 const LoginScreen = ({ navigation }) => {
    const [form, setForm] = useState({
       nik: '',
@@ -23,39 +21,17 @@ const LoginScreen = ({ navigation }) => {
       })
    }
 
+   const {signIn} = React.useContext(AuthContext);
+
    const handleSubmit = () => {
       if (form.nik && form.nama) {
-         const data = {
-            nik: form.nik,
-            nama: form.nama
-         }
-         axios.post(BASE_URL + LOGIN, data)
-            .then( async (res) => {
-               console.log(res.data.response)
-               const response = res.data.response;
-               if (response.status === 'failed') {
-                  Alert.alert(
-                     "Login gagal !",
-                     `${response.status}`
-                  );
-               }
-               else {
-                  const nama = response.data.nama;
-                  const nik = response.data.nik;
-                  await AsyncStorage.setItem('nama', nama)
-                  await AsyncStorage.setItem('nik', nik.toString());
-                  navigation.navigate("Home")
-               }
-            })
-            .catch(e => {
-               console.log(e)
-            })
-
+        const data = {
+          nik: form.nik,
+          nama: form.nama,
+        };
+        signIn(data);
       } else {
-         Alert.alert(
-            "Login gagal !",
-            "NIK & Nama tidak boleh kosong"
-         );
+         Alert.alert('Isi NIK & Nama', 'Form tidak boleh kosong');
       }
    }
 
