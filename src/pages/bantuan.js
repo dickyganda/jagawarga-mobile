@@ -39,11 +39,13 @@ const BantuanScreen = ({ navigation }) => {
         satuan: form.satuan,
         nik: nik,
       };
+      console.log('[data]', data);
       setLoading(true);
       axios
         .post(BASE_URL + INSERT, data)
         .then((res) => {
           const response = res.data;
+          console.log('[response]', response);
           setLoading(false);
           if (response.status === 'failed') {
             Alert.alert('Tambah data gagal!', `${response.status}`);
@@ -52,7 +54,7 @@ const BantuanScreen = ({ navigation }) => {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.log('[err]', e);
         });
     } else {
       Alert.alert('Input bantuan gagal !', 'Data yang dimasukkan salah');

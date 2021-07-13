@@ -71,26 +71,25 @@ function LoginScreenStack() {
   )
 }
 
-function Logout({ navigation }) {
-  const [nama, setNama] = React.useState(null);
+function Logout({navigation}) {
   React.useEffect(() => {
     async function getName() {
-      const nameUser = await AsyncStorage.removeItem('nama');
-      await setNama(nameUser)
+      await AsyncStorage.removeItem('nama');
+      await AsyncStorage.removeItem('nik');
     }
     getName();
-  }, [])
+  }, []);
   return (
     <Stack.Navigator initialRouteName="LoginScreen">
       <Stack.Screen
         name="Login"
         component={LoginScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
-  )
+  );
 }
 
 function HomeScreenStack({ navigation }) {

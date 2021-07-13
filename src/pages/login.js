@@ -41,7 +41,9 @@ const LoginScreen = ({ navigation }) => {
                }
                else {
                   const nama = response.data.nama;
+                  const nik = response.data.nik;
                   await AsyncStorage.setItem('nama', nama)
+                  await AsyncStorage.setItem('nik', nik.toString());
                   navigation.navigate("Home")
                }
             })
