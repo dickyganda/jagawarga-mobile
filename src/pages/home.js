@@ -1,6 +1,31 @@
 import React, { Component } from 'react';
-import { Image, FlatList, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Image, FlatList, Dimensions, TouchableWithoutFeedback, StyleSheet, Platform } from 'react-native';
 import { Container, Card, Text, View } from 'native-base';
+import Carousel from 'react-native-snap-carousel';
+
+const colors = {
+  black: '#1a1917',
+  gray: '#888888',
+  background1: '#B721FF',
+  background2: '#21D4FD'
+};
+
+const IS_IOS = Platform.OS === 'ios';
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+
+function wp (percentage) {
+    const value = (percentage * viewportWidth) / 100;
+    return Math.round(value);
+}
+
+const slideHeight = viewportHeight * 0.36;
+const slideWidth = wp(75);
+const itemHorizontalMargin = wp(2);
+
+export const sliderWidth = viewportWidth;
+export const itemWidth = slideWidth + itemHorizontalMargin * 2;
+
+const entryBorderRadius = 8;
 
 const tbParu =
   {
@@ -182,10 +207,60 @@ const homeMenu = [
     params: covid19,
   },
 ];
+const ENTRIES = [
+  {
+      title: 'Budayakan 3M',
+      subtitle: 'Mencuci Tangan, Menggunakan Masker, Menjaga Jarak.',
+      illustration: 'https://i.imgur.com/SsJmZ9jl.jpg'
+      // illustration: require('../drawable/carousel/cs_1.jpg'),
+  },
+  {
+      title: 'Menjaga Lebih Baik daripada Mengobati',
+      subtitle: 'jaga kebersihan diri, untuk kesehatan pribadi dan keluarga.',
+      illustration: 'https://i.imgur.com/5tj6S7Ol.jpg'
+      // illustration: require('../drawable/carousel/cs_2.jpg'),
+  },
+  {
+      title: 'Makanlah makanan 4 sehat 5 sempurna',
+      subtitle: 'Menjaga diri bisa dilakukan dengan menjaga asupan makanan.',
+      illustration: 'https://i.imgur.com/pmSqIFZl.jpg'
+      // illustration: require('../drawable/carousel/cs_3.jpg'),
+  }
+];
 export default class Home extends Component {
+  _renderItem = ({ item, index }) => {
+    return (
+      <View style={styles.slideInnerContainer}>
+        <View style={styles.shadow} />
+        <View style={styles.imageContainer}>
+          <Image 
+            source={{ uri: item.illustration }}
+            // source={item.illustration} 
+            style={styles.image} 
+          />
+          <View style={styles.radiusMask} />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.title} numberOfLines={2}>
+            {item.title.toUpperCase()}
+          </Text>
+          <Text style={styles.subtitle}>{item.subtitle}</Text>
+        </View>
+      </View>
+    )
+  }
   render() {
     return (
       <Container>
+        <Carousel 
+          ref={(c) => {this._carousel = c}}
+          data={ENTRIES}
+          renderItem={this._renderItem}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          autoplay={true}
+          loop={true}
+        />
         <FlatList
           data={homeMenu}
           renderItem={({ item, index }) => (
@@ -223,9 +298,90 @@ export default class Home extends Component {
           )}
           numColumns={3}
           keyExtractor={item => item.id}
-          style={{ alignSelf: 'center', margin: 20 }}
+          style={{ alignSelf: 'center', marginTop: -100 }}
         />
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  slideInnerContainer: {
+    width: itemWidth,
+    height: slideHeight,
+    paddingHorizontal: itemHorizontalMargin,
+    paddingBottom: 18, // needed for shadow
+    marginTop: 20,
+  },
+  shadow: {
+      position: 'absolute',
+      top: 0,
+      left: itemHorizontalMargin,
+      right: itemHorizontalMargin,
+      bottom: 18,
+      shadowColor: colors.black,
+      shadowOpacity: 0.25,
+      shadowOffset: { width: 0, height: 10 },
+      shadowRadius: 10,
+      borderRadius: entryBorderRadius
+  },
+  imageContainer: {
+      flex: 1,
+      marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
+      backgroundColor: 'white',
+      borderTopLeftRadius: entryBorderRadius,
+      borderTopRightRadius: entryBorderRadius
+  },
+  imageContainerEven: {
+      backgroundColor: colors.black
+  },
+  image: {
+      ...StyleSheet.absoluteFillObject,
+      resizeMode: 'cover',
+      borderRadius: IS_IOS ? entryBorderRadius : 0,
+      borderTopLeftRadius: entryBorderRadius,
+      borderTopRightRadius: entryBorderRadius
+  },
+  // image's border radius is buggy on iOS; let's hack it!
+  radiusMask: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: entryBorderRadius,
+      backgroundColor: 'white'
+  },
+  radiusMaskEven: {
+      backgroundColor: colors.black
+  },
+  textContainer: {
+      justifyContent: 'center',
+      paddingTop: 20 - entryBorderRadius,
+      paddingBottom: 20,
+      paddingHorizontal: 16,
+      backgroundColor: '#eee',
+      borderBottomLeftRadius: entryBorderRadius,
+      borderBottomRightRadius: entryBorderRadius
+  },
+  textContainerEven: {
+      backgroundColor: colors.black
+  },
+  title: {
+      color: colors.black,
+      fontSize: 13,
+      fontWeight: 'bold',
+      letterSpacing: 0.5
+  },
+  titleEven: {
+      color: 'white'
+  },
+  subtitle: {
+      marginTop: 6,
+      color: colors.gray,
+      fontSize: 12,
+      fontStyle: 'italic'
+  },
+  subtitleEven: {
+      color: 'rgba(255, 255, 255, 0.7)'
+  }
+});

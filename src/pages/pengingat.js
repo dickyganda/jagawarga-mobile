@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { ScrollView, ActivityIndicator } from 'react-native';
+import {ScrollView} from 'react-native';
 import { Container } from 'native-base';
-import { Searchbar, DataTable } from 'react-native-paper';
+import {Searchbar, DataTable, ActivityIndicator} from 'react-native-paper';
 import axios from 'axios';
 
 import { BASE_URL, VIEWKARANTINA } from '../store/typeStore'
