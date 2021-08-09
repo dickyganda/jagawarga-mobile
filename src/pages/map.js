@@ -1,30 +1,14 @@
 import * as React from 'react';
-import { View, Text, Image} from 'react-native';
-import { Container, Header, Button, Right} from 'native-base';
-
+import { ActivityIndicator } from 'react-native-paper';
+import { WebView } from 'react-native-webview';
 
 const MapScreen = ({ navigation }) => {
-    return (
-       <Container>
-         <Header style={{ backgroundColor: '#2faaff' }}>
-            {/* <Left>
-               <Button transparent  onPress={()=>this.props.navigation.openDrawer()}>
-               <Image source={require('../drawable/list.png')} style={{ width: 25, height: 25}} />
-               </Button>
-            </Left>
-            <Body>
-               <Image source={require('../drawable/title_jagawarga.png')} style={{ width: 300, height: 25}} ></Image>
-            </Body>
-            <Right>
-               <Button transparent onPress={()=> this.props.navigation.navigate("Login")}>
-               <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
-               </Button>
-            </Right> */}
-         </Header>
-         <View>
-         <Text>Ini halaman map</Text>
-         </View>
-      </Container>
-    );
-  }
-  export default MapScreen
+   return (
+     <WebView
+        source={{uri: 'http://147.139.182.187/mapmobile'}}
+        startInLoadingState={true}
+        renderLoading={() => <ActivityIndicator size="large" color="#000" style={{ flex: 10 }} />}
+     />
+   );
+}
+export default MapScreen

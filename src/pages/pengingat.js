@@ -1,103 +1,70 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet} from 'react-native';
-import { Container, Header, Left, Button, Icon, Body, Title, Right, Image } from 'native-base';
-import { DataTable } from 'react-native-paper';
-import axios from 'axios'
-import {BASE_URL,VIEWKARANTINA} from '../api'
+import {ScrollView} from 'react-native';
+import { Container } from 'native-base';
+import {Searchbar, DataTable, ActivityIndicator} from 'react-native-paper';
+import axios from 'axios';
+
+import { BASE_URL, VIEWKARANTINA } from '../store/typeStore'
 
 const PengingatScreen = ({ navigation }) => {
-   const [data, setData] = React.useState(null);
+  const [users, setUser] = React.useState([]);
+  const [loading, setloading] = React.useState(false);
+  const [search, setSearch] = React.useState("");
+  const [filteredUser, setFilteredUser] = React.useState([]);
 
-   React.useEffect(() => {
-     axios.get(BASE_URL+VIEWKARANTINA)
-    .then(res => {
-       setData({
-          data : res.data
-       })
-    })
-    .catch(e => {
-       console.log(e)
-    })
-   });
+  React.useEffect(() => {
+    setloading(true);
+    axios
+      .get(BASE_URL + VIEWKARANTINA)
+      .then((res) => {
+        setUser(res.data);
+        setloading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
 
+  React.useEffect(() => {
+    setFilteredUser(
+      users.filter((user) => 
+        user.nama.toLowerCase().includes(search.toLowerCase())
+      )
+    )
+  }, [search, users]);
+
+  if (loading) {
     return (
-       <Container>
-         <Header style={{ backgroundColor: '#2faaff' }}>
-            {/* <Left>
-               <Button transparent  onPress={()=>this.props.navigation.openDrawer()}>
-               <Image source={require('../drawable/list.png')} style={{ width: 25, height: 25}} />
-               </Button>
-            </Left>
-            <Body>
-               <Image source={require('../drawable/title_jagawarga.png')} style={{ width: 300, height: 25}} ></Image>
-            </Body>
-            <Right>
-               <Button transparent onPress={()=> this.props.navigation.navigate("Login")}>
-               <Image source={require('../drawable/loginicon.png')} style={{ width: 25, height: 25}} />
-               </Button>
-            </Right> */}
-         </Header>
-      <View style={styles.container}>
-         <Text style = {styles.titletext}>Pengingat</Text>
-   {data === null ? 
-      <Text>Tunggu</Text>
-   :
-    <DataTable>
-    <DataTable.Header>
-      <DataTable.Title>Nama</DataTable.Title>
-      <DataTable.Title numeric>Nama Penyakit</DataTable.Title>
-      <DataTable.Title numeric>Sisa Waktu (Hari)</DataTable.Title>
-    </DataTable.Header>
-      {data.data.map((data) =>
-         <DataTable.Row key={data.id_karantina}>
-            <DataTable.Cell>{data.nama}</DataTable.Cell>
-            <DataTable.Cell numeric>{data.nama_penyakit}</DataTable.Cell>
-            <DataTable.Cell numeric>{data.waktu_karantina}</DataTable.Cell>
-         </DataTable.Row>
-      )}
+      <ActivityIndicator size="large" color="#000" style={{ flex: 1}} />
+    )
+  }
 
-    {/* <DataTable.Pagination
-      page={1}
-      numberOfPages={3}
-      onPageChange={page => {
-        console.log(page);
-      }}
-      label="1-2 of 6"
-    /> */}
-  </DataTable>
-   }
-      </View>
+  return (
+    <Container>
+      <Searchbar
+        placeholder="Search"
+        icon={{uri: 'https://img.icons8.com/search'}}
+        onChangeText={(value) => setSearch(value)}
+      />
+        <ScrollView showsHorizontalScrollIndicator={false}>
+            <DataTable>
+              <DataTable.Header>
+                <DataTable.Title style={{flex: 2}}>Nama</DataTable.Title>
+                <DataTable.Title style={{flex: 2}}>Nama Penyakit</DataTable.Title>
+                <DataTable.Title style={{ flex: 2}}>Sisa Waktu (Hari)</DataTable.Title>
+                <DataTable.Title>Status</DataTable.Title>
+              </DataTable.Header>
+              {filteredUser.map((user, index) => (
+                <DataTable.Row key={index.toString()}>
+                  <DataTable.Cell style={{flex: 2}}>{user.nama}</DataTable.Cell>
+                  <DataTable.Cell style={{flex: 2}}>{user.nama_penyakit}</DataTable.Cell>
+                  <DataTable.Cell style={{ flex: 2}}>{user.waktu_karantina}</DataTable.Cell>
+                  <DataTable.Cell>{user.status}</DataTable.Cell>
+                </DataTable.Row>
+              ))}
+            </DataTable>
+          </ScrollView>
       </Container>
     );
   }
-  export default PengingatScreen
-
-  const styles = StyleSheet.create({
-   container: {
-      paddingTop: 23
-   },
-
-   titletext:{
-      fontSize: 18,
-      color: '#2faaff',
-      textAlign: 'center',
-   },
-
-   input: {
-      margin: 15,
-      height: 40,
-      borderColor: '#008dcb',
-      borderWidth: 1
-   },
-
-   submitButton: {
-      backgroundColor: '#2faaff',
-      padding: 10,
-      margin: 15,
-      height: 40,
-   },
-
-   submitButtonText:{
-      color: 'white'
-   }
-})
+export default PengingatScreen;

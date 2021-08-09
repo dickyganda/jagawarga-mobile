@@ -1,126 +1,105 @@
-import React, {useState} from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Text, Alert } from 'react-native';
-import { Container, Header, Form, Item, Input, Label, Card} from 'native-base';
-import axios from 'axios'
-import {BASE_URL,LOGIN} from '../api'
-
-
+import React, { useState } from 'react';
+import { View, StyleSheet, Image, TouchableOpacity, Text, Alert, TextInput, StatusBar } from 'react-native';
+import {AuthContext} from '../utils/authContext';
 const LoginScreen = ({ navigation }) => {
    const [form, setForm] = useState({
-      nik:'',
-      nama:''
+      nik: '',
+      nama: ''
    });
 
-   const handleChange = (key, value) =>{        
+   const handleChangeNIK = (value) => {
       setForm({
-      ...form,
-            [key] : value
+         ...form,
+         nik: value
       })
    }
 
-   const handleSubmit = () =>{
-      if(form.nik && form.nama){
-          // navigation.replace('Home')
-          const data = {
-              nik : form.nik,
-              nama : form.nama
-          }
-         //  console.log(data)
-         axios.post(BASE_URL+LOGIN, data)
-         .then(res => {
-            // console.log(res.data);
-            if(res.data.status === "failed"){
-               alert("Login gagal")
-            }
-            else {
-               navigation.navigate("Home")
-            }
-            // pengecekan ketika status API berhasil, dan data user didapatkan.
-            // ketika status API failed, tetap dihalaman login, tp popup error.
-            // jika success lanjut bawah
-            // lock AsynStorage { info user }, navigasi ke halaman home
-            // ketika user masuk aplikasi lagi, tidak perlu login langsung ke halaman input
-          })
-          .catch( e => {
-             console.log(e)
-          })
-         
-      }else{
-          Alert.alert(
-              "Login gagal !",
-              "NIK & Nama tidak boleh kosong"
-            );
-          // alert('Username & Password tidak boleh kosong')
+   const handleChangeName = (value) => {
+      setForm({
+         ...form,
+         nama: value
+      })
+   }
+
+   const {signIn} = React.useContext(AuthContext);
+
+   const handleSubmit = () => {
+      if (form.nik && form.nama) {
+        const data = {
+          nik: form.nik,
+          nama: form.nama,
+        };
+        signIn(data);
+      } else {
+         Alert.alert('Isi NIK & Nama', 'Form tidak boleh kosong');
       }
    }
 
 
-    return (
-       <Container style={{backgroundColor: '#2faaff'}}>
+   return (
       <View style={styles.container}>
-         <Image source={require('../drawable/title_jagawarga.png')} style={styles.image}/>
-         <Card style = {styles.card}>
-      <Form style={{alignItems: 'center'}}>
-            <Item floatingLabel>
-              <Label>NIK</Label>
-              <Input onChangeText={(value) => handleChange('nik',value)} />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Nama</Label>
-              <Input onChangeText={(value) => handleChange('nama',value)}/>
-            </Item>
-            <TouchableOpacity
-               style = {styles.submitButton}
-               onPress = {
-                  () => handleSubmit()
-               }>
-               <Text style = {styles.submitButtonText}> Submit </Text>
-            </TouchableOpacity>
-          </Form>
-          </Card>
+         <Image style={styles.image} source={require('../drawable/title_jagawarga.png')} />
+         <StatusBar style="auto" />
+         <View style={styles.inputView}>
+            <TextInput
+               style={styles.TextInput}
+               onChangeText={(value) => handleChangeNIK(value)}
+               placeholder="NIK"
+               placeholderTextColor="#003f5c"
+            />
+         </View>
+         <View style={styles.inputView}>
+            <TextInput
+               style={styles.TextInput}
+               onChangeText={(value) => handleChangeName(value)}
+               placeholder="Nama"
+               placeholderTextColor="#003f5c"
+            />
+         </View>
+         <TouchableOpacity style={styles.loginBtn} onPress={() => handleSubmit()}>
+            <Text style={styles.loginText}>Login</Text>
+         </TouchableOpacity>
       </View>
-      </Container>
-    );
-  }
-  export default LoginScreen
+   );
+}
+export default LoginScreen
 
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
    container: {
-      paddingTop: 23
+      flex: 1,
+      backgroundColor: "#2faaff",
+      alignItems: "center",
+      justifyContent: "center",
    },
-
-   titletext:{
-       fontSize: 18,
-       color: 'blue',
-       textAlign: 'center',
-   },
-
-   input: {
-      margin: 15,
-      height: 40,
-      borderColor: '#7a42f4',
-      borderWidth: 1
-   },
-
-   submitButton: {
-      backgroundColor: 'navy',
-      padding: 10,
-      margin: 15,
-      height: 40,
-      borderRadius: 20,
-   },
-
-   submitButtonText:{
-      color: 'white'
-   },
-
-   card:{
-      borderRadius: 50,
-   },
-   
-   Image:{
+   image: {
+      marginBottom: 40,
       width: 300,
-      height: 25,
-
+      resizeMode: 'contain'
+   },
+   inputView: {
+      backgroundColor: "#fff",
+      borderRadius: 30,
+      width: "70%",
+      height: 45,
+      marginBottom: 20,
+   },
+   TextInput: {
+      height: 50,
+      flex: 1,
+      padding: 10,
+      marginLeft: 10
+   },
+   loginBtn: {
+      width: "80%",
+      borderRadius: 25,
+      height: 50,
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 40,
+      backgroundColor: "#0080ff",
+   },
+   loginText: {
+      color: 'white',
+      fontWeight: 'bold'
    }
 })
